@@ -24,25 +24,25 @@ public class MemberServiceImpl implements MemberSerivce {
 	@Override
 	public void insertMember(MemberVO vo) {
 		memberDao.insertMember(vo);
-
 	}
 
 	@Override
-	public MemberVO viewMember() {
-		// TODO Auto-generated method stub
-		return null;
+	public MemberVO viewMember(String id) {
+		return memberDao.viewMember(id);
 	}
 
 	@Override
 	public void deleteMember(String id) {
-		// TODO Auto-generated method stub
-
+		memberDao.deleteMember(id);
 	}
 
 	@Override
 	public void updateMember(MemberVO vo) {
-		// TODO Auto-generated method stub
-
+        memberDao.updateMember(vo);
+    }
+	
+	public boolean checkPasswd (String id, String passwd) {
+		return memberDao.checkPasswd(id,passwd);
 	}
 
 }

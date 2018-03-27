@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="member">
@@ -8,7 +7,8 @@
         SELECT 
           id AS id, 
           name AS name,
-          age AS age
+          age AS age,
+          reg AS reg
         FROM MEMBER
         ORDER BY NAME
     </select>
@@ -19,4 +19,43 @@
         VALUES 
             (#{id}, #{passwd}, #{name}, #{age})    
     </insert>
+    
+    <!-- 회원 상세조회 (AS 이후에 붙는 id, passwd 들이 자바의 변수인건가??
+    그냥 select출력값이 저렇게 나오게 하는건가? 앞에께 SQL 컬럼?) -->
+    <select id="viewMember" resultType ="com.goodt.goodt.member.dto.MemberVO">
+    	SELECT
+    		id as id,
+    		name as name,
+    		age as age,
+    		reg as reg,
+    		reg as updt
+    	FROM MEMBER
+    	WHERE id = #{id}
+    </select>
+    
+    <!-- 수정하는 것이다. -->
+    <update id="updateMember">
+    	UPDATE member
+        SET
+            passwd = #{passwd},
+            name = #{name},
+            age = #{age},
+            updt = sysdate
+        WHERE
+            id = #{id}
+    </update>
+    
+    <!-- 05. 회원정보 삭제 처리 -->
+    <delete id="deleteMember">
+        DELETE FROM member
+        WHERE id = #{id}
+    </delete>
+    
+    <!-- 06. 비밀번호 체크 -->
+    <select id="checkPasswd" resultType="int">
+        SELECT 
+            COUNT(*) 
+        FROM member
+        WHERE id = #{id} AND passwd = #{passwd}
+    </select>
 </mapper>

@@ -8,5 +8,8 @@
 </head>
 <body>
  <h2> 어서와 여긴 메인이야.</h2>
+ <h2>
+ 	<a href ="member/list.do">회원 리스트로 가기</a>
+ </h2>
 </body>
 </html>
